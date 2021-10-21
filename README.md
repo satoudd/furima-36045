@@ -22,13 +22,16 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
-## userテーブル
+## usersテーブル
 |Column             |Type        |Options|
 |-------------------|------------|------------|
 |name               | string     |null: false |
 |email              | string     |unique: true|
 |encrypted_password |  string    |null: false |
 
+### Association
+has_many :items
+has_one :buyer
 
 ## itemsテーブル
 
@@ -39,10 +42,18 @@ Things you may want to cover:
 |prices             |  string    |null: false |
 |seller             |  string    |null:false  |
 
-## 購入者
+### Association
+belongs_to :users
+has_one :buyers
+
+## buyer
 
 |Column             |Type        |Options|
 |-----------------|------------|------------|
-| buyer           | string     |null: false |
-| shipping address| text       |null:false  |
+| buyer_name      | string     |null: false |
+| shipping_address| text       |null:false  |
 
+### Association
+
+belongs_to :users
+belongs_to :items
