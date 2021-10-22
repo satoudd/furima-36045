@@ -36,7 +36,7 @@ Things you may want to cover:
 
 ### Association
 has_many :items
-has_many :purchase records
+has_many :purchase_records
 
 
 ## itemsテーブル
@@ -49,22 +49,22 @@ has_many :purchase records
 |user                | references |foreign_key: true |
 |product_description |  text      |null:false        |
 |product_condition_id| integer    |null:false        |
-|shipping_charges_id | integer    |null:false        |
-|Days_to_ship_id     |  integer   |null:false        |
+|shipping_charge_id | integer    |null:false        |
+|days_to_ship_id     |  integer   |null:false        |
 |prefecture_id       |  integer   |null:false        |
 
 
 ### Association
 has_one :purchase_record
-
+belongs_to :user
 
 ## Purchase_records
 
 |Column             |Type        |Options|
 |-----------------|------------|------------------|
-| buyer_name      | references |foreign_kei: true |
-| user_id         | references |foreign_kei: true |
-| item_id         | references | foreign_kei: true|
+| purchase_record| references |foreign_kei: true |
+| item            | references | foreign_kei: true|
+| user            | references |foreign_kei: true |
 ### Association
 
 belongs_to :user
@@ -78,7 +78,7 @@ has_one :address
 |prefecture_id    | integer    |null: false |
 |municipalities   | string     |null: false |
 |address          | string     |null: false |
-|Building_name    | string     |null: false |
+|building_name    | string     |            |
 |telephone_number | string     |null: false |
 ### Association
-belongs_to :Purchase_record
+belongs_to :purchase_record
