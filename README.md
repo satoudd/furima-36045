@@ -24,60 +24,61 @@ Things you may want to cover:
 * ...
 ## usersテーブル
 |Column             |Type        |Options|
-|-------------------|------------|------------|
-|nickname           | string     |null: false |
-|email              | string     |unique: true|
-|encrypted_password |  string    |null: false |
-|last_name          | string     |null: false |
-|first_name         | string     |null: false |
-|last_name_kana     | string     |null: false |
-|first_name_kana    | string     |null: false |
-|birth_date         | date       |null: false |
+|-------------------|------------|------------------------|
+|nickname           | string     |null: false             |
+|email              | string     |unique: true, null:false|
+|encrypted_password |  string    |null: false             |
+|last_name          | string     |null: false             |
+|first_name         | string     |null: false             |
+|last_name_kana     | string     |null: false             |
+|first_name_kana    | string     |null: false             |
+|birth_date         | intege     |null: false             |
 
 ### Association
 has_many :items
-has_one  :purchase record
-has_one  address
+has_many :purchase record
+has_one  :address
 
 ## itemsテーブル
 
 |Column             |Type        |Options|
-|-------------------|------------|------------|
-|product_name       | string     |null: false |
-|category           |  string    |null:false  |
-|prices             |  string    |null: false |
-|seller             |  string    |null:false  |
-|product description|  text      |null:false  |
-|product condition  |  date      |null:false  |
-|shipping charges   |  date      |null:false  |
-|Days to ship       |  date      |null:false  |
-|Sales commission   |  string    |null:false  |
-|Sales profit       |  string    |null:false  |
+|-------------------|------------|------------------|
+|product_name       | string     |null: false       |
+|category           |  integer   |null:false        |
+|prices             |  string    |null: false       |
+|seller             | references |foreign_key: true |
+|product_description|  text      |null:false        |
+|product_condition  | integer    |null:false        |
+|shipping_charges   | integer    |null:false        |
+|Days_to_ship       |  integer   |null:false        |
+|delivery_area      |  integer   |null:false        |
+
 
 ### Association
 belongs_to :user
-has_one :purchase record
-has_one :address
+has_one :purchase_record
 
-## Purchase record
+
+## Purchase_records
 
 |Column             |Type        |Options|
-|-----------------|------------|------------|
-| buyer_name      | string     |null: false |
-
-
+|-----------------|------------|------------------|
+| buyer_name      | references |foreign_kei: true |
+| user_id         | references |foreign_kei: true |
+| item_id         | references | foreign_kei: true|
 ### Association
 
 belongs_to :user
 belongs_to :item
-has_one    :address
 
-## address
+
+## addresss
 |Column             |Type        |Options|
 |-----------------|------------|------------|
-| shipping_address| string     |null: false |
-
+|postal_code      | string     |null: false |
+|prefectures      | string     |null: false |
+|municipalities   | integer    |null: false |
+|address          | string     |null: false |
+|Building_name    | string     |null: false |
+|telephone_number | string     |null: false |
 ### Association
-belongs_to :user
-belongs_to :item
-belongs_to :purchase record
