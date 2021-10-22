@@ -32,30 +32,29 @@ Things you may want to cover:
 |first_name         | string     |null: false             |
 |last_name_kana     | string     |null: false             |
 |first_name_kana    | string     |null: false             |
-|birth_date         | intege     |null: false             |
+|birth_date         | date       |null: false             |
 
 ### Association
 has_many :items
-has_many :purchase record
-has_one  :address
+has_many :purchase records
+
 
 ## itemsテーブル
 
-|Column             |Type        |Options|
-|-------------------|------------|------------------|
-|product_name       | string     |null: false       |
-|category           |  integer   |null:false        |
-|prices             |  string    |null: false       |
-|seller             | references |foreign_key: true |
-|product_description|  text      |null:false        |
-|product_condition  | integer    |null:false        |
-|shipping_charges   | integer    |null:false        |
-|Days_to_ship       |  integer   |null:false        |
-|delivery_area      |  integer   |null:false        |
+|Column              |Type        |Options|
+|--------------------|------------|------------------|
+|product_name        | string     |null: false       |
+|category_id         |  integer   |null:false        |
+|prices              |  string    |null: false       |
+|user                | references |foreign_key: true |
+|product_description |  text      |null:false        |
+|product_condition_id| integer    |null:false        |
+|shipping_charges_id | integer    |null:false        |
+|Days_to_ship_id     |  integer   |null:false        |
+|prefecture_id       |  integer   |null:false        |
 
 
 ### Association
-belongs_to :user
 has_one :purchase_record
 
 
@@ -70,15 +69,16 @@ has_one :purchase_record
 
 belongs_to :user
 belongs_to :item
+has_one :address
 
-
-## addresss
+## addresses
 |Column             |Type        |Options|
 |-----------------|------------|------------|
 |postal_code      | string     |null: false |
-|prefectures      | string     |null: false |
-|municipalities   | integer    |null: false |
+|prefecture_id    | integer    |null: false |
+|municipalities   | string     |null: false |
 |address          | string     |null: false |
 |Building_name    | string     |null: false |
 |telephone_number | string     |null: false |
 ### Association
+belongs_to :Purchase_record
