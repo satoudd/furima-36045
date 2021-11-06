@@ -99,9 +99,9 @@ require 'rails_helper'
         expect(@user.errors.full_messages).to include("First name kana 全角カタカナを使用してください")
       end
       it 'passwordは6文字未満だと登録できない' do
-        @user.password = 'eeeeee'
+        @user.password = 'a1111'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
       end
     end
   end
