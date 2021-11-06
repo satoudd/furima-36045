@@ -63,8 +63,13 @@ require 'rails_helper'
         another_user.valid?
         expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
-      it 'passwordには英字と数字の両方を含めないと登録できない' do
-        @user.password = 'ee'
+      it 'passwordには英字を含めないと登録できない' do
+        @user.password = '2222222'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      end
+      it 'passwordには数字を含めないと登録できない' do
+        @user.password = 'eeeeeee'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
@@ -77,6 +82,26 @@ require 'rails_helper'
         @user.last_name = 'jj'
         @user.valid?
         expect(@user.errors.full_messages).to include("Last name 全角文字を使用してください")
+      end
+      it 'emailは@を使用しないと登録できない' do
+        @user.email = 'test'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
+      end
+      it 'last_name_kanaは全角カタカナ以外の文字をを使用すると登録できない' do
+        @user.last_name_kana = 'ひ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name kana 全角カタカナを使用してください")
+      end
+      it 'first_name_kanaは全角カタカナ以外の文字をを使用すると登録できない' do
+        @user.first_name_kana = 'ひ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name kana 全角カタカナを使用してください")
+      end
+      it 'passwordは6文字未満だと登録できない' do
+        @user.password = 'eeeeee'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
     end
   end
