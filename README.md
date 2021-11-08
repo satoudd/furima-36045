@@ -49,7 +49,7 @@ has_many :purchase_records
 |user                | references |foreign_key: true, null: false|
 |product_description |  text      |null:false                    |
 |product_condition_id| integer    |null:false                    |
-|shipping_charge_id | integer    |null:false                     |
+|shipping_charge_id  | integer    |null:false                     |
 |days_to_ship_id     |  integer   |null:false                    |
 |prefecture_id       |  integer   |null:false                    |
 
