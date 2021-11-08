@@ -8,6 +8,7 @@ require 'rails_helper'
   describe 'ユーザー新規登録' do
     context '新規登録できるとき' do
       it 'nicknameとemail、passwordとpassword_confirmation、first_nameとlast_name、first_name_kanaとlast_name_kana、birth_dateが存在すれば登録できる' do
+        expect(@user).to be_valid
       end
     end
     context '新規登録できないとき' do
@@ -66,12 +67,12 @@ require 'rails_helper'
       it 'passwordには英字を含めないと登録できない' do
         @user.password = '2222222'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password には英字と数字の両方を含めて設定してください")
       end
       it 'passwordには数字を含めないと登録できない' do
         @user.password = 'eeeeeee'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password には英字と数字の両方を含めて設定してください")
       end
       it 'first_nameは全角文字を使用しないと登録できない' do
         @user.first_name = 'jj'
@@ -102,6 +103,11 @@ require 'rails_helper'
         @user.password = 'a1111'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+      end
+      it 'passwordに全角文字が含まれていると登録できない' do
+        @user.password = 'かん'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password には英字と数字の両方を含めて設定してください")
       end
     end
   end
