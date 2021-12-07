@@ -67,6 +67,16 @@ describe 'itemの保存' do
       @item.valid?
       expect(@item.errors.full_messages).to include("Prices is not a number")
     end
+    it 'pricesは300円未満だとitemは登録できない' do
+      @item.prices = '200'
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Prices must be greater than or equal to 300")
+    end
+    it 'pricesは9999999以上だとitemは登録できない' do
+      @item.prices = '99999999'
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Prices must be less than or equal to 9999999")
+    end
   end
  end
 end
