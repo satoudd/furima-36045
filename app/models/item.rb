@@ -8,13 +8,16 @@ class Item <  ApplicationRecord
   belongs_to :days_to_ship
   validates :image, presence: true
   validates :product_name, presence: true
-  validates :category_id, presence: true
   validates :prices, presence: true
+  validates :category_id, presence: true, numericality: { other_than: 1 , message: "can't be blank"}
+
+  validates :prices, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 9_999_999 },
+                  format: { with: /\A[0-9]+\z/ }
   validates :product_description, presence: true
-  validates :product_id, presence: true
-  validates :shippingcharge_id, presence: true
-  validates :shipping_area_id, presence: true
-  validates :days_to_ship_id, presence: true
-  PRICES_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
-validates_format_of :prices, with: PRICES_REGEX, message: 'には英字と数字の両方を含めて設定してください'
+  validates :product_id, presence: true, numericality: { other_than: 1 , message: "can't be blank"}
+
+  validates :shippingcharge_id, presence: true, numericality: { other_than: 1 , message: "can't be blank"}
+
+  validates :shipping_area_id, presence: true, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :days_to_ship_id, presence: true, numericality: { other_than: 1 , message: "can't be blank"}
 end

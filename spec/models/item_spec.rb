@@ -7,7 +7,7 @@ end
 
 describe 'itemの保存' do
   context "itemが保存できる場合" do
-    it 'product_nameとimage、userとprices、が存在すれば登録できる' do
+    it 'product_nameとimage、userとprices、product_descriptionとcategory_id、product_idとshippingcharge_id、days_to_ship_idとshipping_area_idが存在すれば登録できる' do
      expect(@item).to be_valid
     end
   end
@@ -62,15 +62,10 @@ describe 'itemの保存' do
       @item.valid?
       expect(@item.errors.full_messages).to include("Prices can't be blank")
     end
-    it 'pricesには数字を含めないと登録できない' do
-      @item.prices = 'eeeeeee'
+    it 'pricesは数値以外の文字をを使用するとitemは登録できない' do
+      @item.prices = 'ひ'
       @item.valid?
-      expect(@item.errors.full_messages).to include("Prices には英字と数字の両方を含めて設定してください")
-    end
-    it 'pricesには英字を含めないと登録できない' do
-      @item.prices = '2222222'
-      @item.valid?
-      expect(@item.errors.full_messages).to include("Prices には英字と数字の両方を含めて設定してください")
+      expect(@item.errors.full_messages).to include("Prices is not a number")
     end
   end
  end
